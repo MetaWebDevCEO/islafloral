@@ -1,11 +1,25 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import './navbar.css';
 
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <nav className="navbar-container">
       <div className="navbar-top">
+        <div className="navbar-mobile-toggle" onClick={toggleMenu}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="navbar-icon">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+          </svg>
+        </div>
+
         <div className="navbar-search">
            {/* Simple Search Icon if needed, or just text as per image */}
            <span>Buscar</span>
@@ -19,7 +33,10 @@ export default function Navbar() {
 
         <div className="navbar-actions">
           <Link href="/account" className="navbar-action-item">
-            Cuenta
+            <span className="hidden sm:inline">Cuenta</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="navbar-icon sm:hidden">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
           </Link>
           <Link href="/wishlist" className="navbar-action-item">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="navbar-icon">
@@ -35,10 +52,10 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="navbar-bottom">
-        <Link href="/" className="nav-link active">Inicio</Link>
-        <Link href="/shop" className="nav-link">Tienda</Link>
-        <Link href="/shop" className="nav-link">Flores</Link>
+      <div className={`navbar-bottom ${isMenuOpen ? 'open' : ''}`}>
+        <Link href="/" className="nav-link active" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
+        <Link href="/shop" className="nav-link" onClick={() => setIsMenuOpen(false)}>Tienda</Link>
+        <Link href="/shop" className="nav-link" onClick={() => setIsMenuOpen(false)}>Flores</Link>
       </div>
     </nav>
   );

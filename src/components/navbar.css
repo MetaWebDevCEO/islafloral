@@ -104,14 +104,74 @@
   border-bottom-color: #5a6b48;
 }
 
+.navbar-mobile-toggle {
+  display: none;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .sm\:inline {
+    display: inline;
+  }
+  .sm\:hidden {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
+  .navbar-container {
+    padding: 1rem;
+    position: relative;
+  }
+
   .navbar-top {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: 1rem;
+    width: 100%;
+  }
+
+  .navbar-mobile-toggle {
+    display: block;
+    order: 1;
+  }
+
+  .navbar-logo {
+    order: 2;
+    font-size: 2.5rem; /* Smaller logo on mobile */
+  }
+
+  .navbar-actions {
+    order: 3;
+    gap: 1rem;
+  }
+
+  .navbar-search {
+    display: none; /* Hide search text on mobile, maybe add icon later */
   }
   
   .navbar-bottom {
-    display: none; /* Hide bottom nav on mobile for now, or make it scrollable */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 1rem;
+    gap: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    margin-top: 1rem;
   }
+
+  .navbar-bottom.open {
+    display: flex;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

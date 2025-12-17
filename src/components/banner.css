@@ -20,6 +20,7 @@
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+  line-height: 1.4;
 }
 
 .banner-link {
@@ -29,8 +30,16 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  white-space: nowrap;
 }
 
 .banner-link:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .banner-container {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
 }
