@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <nav className="navbar-container">
       <div className="navbar-top">
-        <div className="navbar-mobile-toggle" onClick={toggleMenu}>
+        <div className={`navbar-mobile-toggle ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="navbar-icon">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
           </svg>

@@ -1,0 +1,76 @@
+.simple-hero {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://i.imgur.com/ScUoY0V.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #ffffff;
+}
+
+.simple-hero-content {
+  max-width: 800px;
+  animation: fadeIn 1s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+.simple-hero h1 {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-playfair), "Times New Roman", serif;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.simple-hero p {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.simple-hero-button {
+  display: inline-block;
+  padding: 1.2rem 3.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: 1px solid #ffffff;
+  backdrop-filter: blur(4px);
+}
+
+.simple-hero-button:hover {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .simple-hero h1 {
+    font-size: 2.5rem;
+  }
+  .simple-hero p {
+    font-size: 1.1rem;
+  }
+}

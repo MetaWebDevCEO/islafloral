@@ -1,0 +1,95 @@
+.footer-container {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 4rem 2rem 2rem;
+  font-family: var(--font-geist-sans), sans-serif;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 3rem;
+}
+
+.footer-brand {
+  max-width: 400px;
+}
+
+.footer-logo {
+  font-family: var(--font-playfair), serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #f5f2ed;
+}
+
+.footer-tagline {
+  color: #a0a0a0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.footer-links h3,
+.footer-contact h3 {
+  font-family: var(--font-playfair), serif;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: #F2527D; /* Pink accent for headers */
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+  color: #a0a0a0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #FD3E9A; /* Hot pink on hover */
+}
+
+.contact-item {
+  margin-bottom: 1rem;
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
+
+.contact-item strong {
+  display: block;
+  color: #e0e0e0;
+  margin-bottom: 0.25rem;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid #333;
+  text-align: center;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .footer-brand {
+    margin: 0 auto;
+  }
+}

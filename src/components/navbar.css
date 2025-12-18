@@ -1,12 +1,24 @@
 .navbar-container {
-  background-color: #f5f2ed; /* Cream/Beige background */
+  background-color: #ffffff;
+  position: relative;
   color: #1a1a1a;
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;
   font-family: var(--font-geist-sans), sans-serif;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Overlay removed for solid background */
+.navbar-container::before {
+  display: none;
+}
+
+.navbar-top,
+.navbar-bottom {
+  position: relative;
+  z-index: 1;
 }
 
 .navbar-top {
@@ -70,7 +82,7 @@
   position: absolute;
   top: -2px;
   right: -6px;
-  background-color: #5a6b48; /* Olive green tone from image */
+  background-color: #F2600C; /* New Orange */
   color: white;
   font-size: 0.6rem;
   width: 16px;
@@ -79,99 +91,83 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
 }
 
 .navbar-bottom {
   display: flex;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
 }
 
 .nav-link {
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: #1a1a1a;
   text-decoration: none;
-  font-weight: 600;
-  padding-bottom: 4px;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s ease;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: opacity 0.2s;
 }
 
-.nav-link:hover, .nav-link.active {
-  border-bottom-color: #5a6b48;
+.nav-link:hover {
+  opacity: 0.8;
 }
 
+/* Mobile specific styles */
 .navbar-mobile-toggle {
   display: none;
+  background: none;
+  border: none;
+  color: #1a1a1a;
   cursor: pointer;
+  z-index: 20;
 }
 
-.hidden {
-  display: none;
+.navbar-mobile-toggle.open {
+  color: white;
 }
 
-@media (min-width: 640px) {
-  .sm\:inline {
-    display: inline;
-  }
-  .sm\:hidden {
-    display: none;
-  }
+/* Reusing mobile overlay styles for navbar-bottom.open */
+.navbar-bottom.open {
+  display: flex !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #1a1a1a;
+  z-index: 10;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-bottom.open .nav-link {
+  color: white;
+  font-size: 1.5rem;
+  font-family: var(--font-playfair), serif;
 }
 
 @media (max-width: 768px) {
-  .navbar-container {
-    padding: 1rem;
-    position: relative;
+  .navbar-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
   }
 
-  .navbar-top {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 1rem;
-    width: 100%;
+  .navbar-search, 
+  .navbar-bottom {
+    display: none;
   }
 
   .navbar-mobile-toggle {
     display: block;
-    order: 1;
   }
 
   .navbar-logo {
-    order: 2;
-    font-size: 2.5rem; /* Smaller logo on mobile */
+    font-size: 2.5rem;
   }
-
-  .navbar-actions {
-    order: 3;
-    gap: 1rem;
-  }
-
-  .navbar-search {
-    display: none; /* Hide search text on mobile, maybe add icon later */
-  }
-  
-  .navbar-bottom {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-top: 1rem;
-    gap: 1.5rem;
-    border-top: 1px solid rgba(0,0,0,0.05);
-    margin-top: 1rem;
-  }
-
-  .navbar-bottom.open {
-    display: flex;
-    animation: fadeIn 0.3s ease-in-out;
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
 }
