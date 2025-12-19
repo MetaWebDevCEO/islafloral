@@ -1,33 +1,179 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import './shop.css';
+
+// Product Data
+const PRODUCTS = [
+  {
+    id: 1,
+    name: "Colección Tropical: Heliconias y Anturios",
+    price: 1200.00,
+    description: "Exotismo puro. Una vibrante selección de Heliconias y Anturios que evoca la calidez del trópico con sus formas arquitectónicas y colores intensos.",
+    image: "/img3.jpg"
+  },
+  {
+    id: 2,
+    name: "Rosa Freedom Premium",
+    price: 1300.00,
+    description: "La reina de las rosas. Variedad Freedom de exportación, famosa por su rojo profundo, tallos largos y apertura perfecta en forma de copa.",
+    image: "/img.jpg"
+  }
+];
 
 export default function Shop() {
+  const [cart, setCart] = useState<number[]>([]);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [checkoutStep, setCheckoutStep] = useState<'details' | 'payment' | 'success'>('details');
+
+  const addToCart = (productId: number) => {
+    setCart([...cart, productId]);
+  };
+
+  const handleCheckout = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (checkoutStep === 'details') {
+      setCheckoutStep('payment');
+    } else if (checkoutStep === 'payment') {
+      // Simulate processing
+      setTimeout(() => {
+        setCheckoutStep('success');
+        setCart([]); // Clear cart
+      }, 1500);
+    }
+  };
+
+  const closeCheckout = () => {
+    setIsCheckoutOpen(false);
+    // Reset state after closing if it was success
+    if (checkoutStep === 'success') {
+      setTimeout(() => setCheckoutStep('details'), 300);
+    }
+  };
+
   return (
-    <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
-      <div className="flex flex-col items-center p-8">
-        <main className="flex flex-col gap-8 items-center sm:items-start w-full max-w-6xl">
-          <h1 className="text-4xl font-bold text-center sm:text-left">
-            Nuestra Tienda
-          </h1>
-          <p className="text-lg text-center sm:text-left max-w-2xl">
-            Explora nuestros productos exclusivos.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-8">
-            {/* Placeholder items */}
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <div key={item} className="border rounded-lg p-4 flex flex-col gap-4 hover:shadow-lg transition-shadow bg-white dark:bg-white/5">
-                <div className="bg-gray-200 dark:bg-gray-700 h-48 rounded-md w-full"></div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="font-bold text-lg">Producto {item}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Descripción breve del producto {item}.</p>
-                  <span className="font-semibold mt-2">$29.99</span>
-                </div>
-                <button className="mt-auto rounded-full bg-foreground text-background py-2 px-4 hover:bg-[#383838] dark:hover:bg-[#ccc] transition-colors text-sm">
-                  Añadir al carrito
+    <div className="min-h-screen bg-white">
+      <div className="shop-container">
+        
+        {/* Header */}
+        <header className="shop-header">
+          <h1 className="shop-title">Nuestra Colección</h1>
+          <p className="shop-subtitle">Piezas exclusivas seleccionadas para momentos inolvidables.</p>
+        </header>
+
+        {/* Product Grid */}
+        <div className="products-grid">
+          {PRODUCTS.map((product) => (
+            <div key={product.id} className="product-card">
+              <div className="product-image-container">
+                <img src={product.image} alt={product.name} className="product-image" />
+              </div>
+              <div className="product-info">
+                <h3 className="product-name">{product.name}</h3>
+                <span className="product-price">${product.price.toFixed(2)}</span>
+                <p className="product-description">{product.description}</p>
+                <button 
+                  className="btn-add-cart"
+                  onClick={() => addToCart(product.id)}
+                >
+                  Añadir al Carrito
                 </button>
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+
+        {/* Floating Cart Button (Visible if items in cart) */}
+        {cart.length > 0 && (
+          <div className="floating-cart" onClick={() => setIsCheckoutOpen(true)}>
+            <span>Tu Carrito</span>
+            <div className="cart-count">{cart.length}</div>
           </div>
-        </main>
+        )}
+
+        {/* Checkout Modal */}
+        {isCheckoutOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <button className="close-modal" onClick={closeCheckout}>&times;</button>
+              
+              {/* Steps Indicator */}
+              <div className="checkout-steps">
+                <span className={`step ${checkoutStep === 'details' ? 'active' : 'completed'}`}>1. Datos</span>
+                <span className={`step ${checkoutStep === 'payment' ? 'active' : ''} ${checkoutStep === 'success' ? 'completed' : ''}`}>2. Pago</span>
+                <span className={`step ${checkoutStep === 'success' ? 'active completed' : ''}`}>3. Confirmación</span>
+              </div>
+
+              <form className="checkout-form" onSubmit={handleCheckout}>
+                
+                {checkoutStep === 'details' && (
+                  <>
+                    <h3>Detalles de Envío</h3>
+                    <div className="form-group">
+                      <label className="form-label">Nombre Completo</label>
+                      <input type="text" className="form-input" required placeholder="Ej. Ana García" />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Dirección</label>
+                      <input type="text" className="form-input" required placeholder="Calle y Número" />
+                    </div>
+                    <div className="form-row">
+                      <div className="form-group" style={{flex: 1}}>
+                        <label className="form-label">Ciudad</label>
+                        <input type="text" className="form-input" required />
+                      </div>
+                      <div className="form-group" style={{flex: 1}}>
+                        <label className="form-label">C.P.</label>
+                        <input type="text" className="form-input" required />
+                      </div>
+                    </div>
+                    <button type="submit" className="btn-primary">Continuar al Pago</button>
+                  </>
+                )}
+
+                {checkoutStep === 'payment' && (
+                  <>
+                    <h3>Método de Pago</h3>
+                    <div className="form-group">
+                      <label className="form-label">Número de Tarjeta</label>
+                      <input type="text" className="form-input" required placeholder="0000 0000 0000 0000" maxLength={19} />
+                    </div>
+                    <div className="form-row">
+                      <div className="form-group" style={{flex: 1}}>
+                        <label className="form-label">Expira</label>
+                        <input type="text" className="form-input" required placeholder="MM/YY" maxLength={5} />
+                      </div>
+                      <div className="form-group" style={{flex: 1}}>
+                        <label className="form-label">CVC</label>
+                        <input type="text" className="form-input" required placeholder="123" maxLength={3} />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Titular de la tarjeta</label>
+                      <input type="text" className="form-input" required />
+                    </div>
+                    <button type="submit" className="btn-primary">Pagar ${cart.reduce((total, id) => total + (PRODUCTS.find(p => p.id === id)?.price || 0), 0).toFixed(2)}</button>
+                  </>
+                )}
+
+                {checkoutStep === 'success' && (
+                  <div className="success-message">
+                    <div className="success-icon">✓</div>
+                    <h3>¡Compra Exitosa!</h3>
+                    <p style={{color: '#666', marginBottom: '2rem'}}>
+                      Gracias por tu compra. Hemos enviado la confirmación a tu correo electrónico.
+                    </p>
+                    <button type="button" className="btn-primary" onClick={closeCheckout}>
+                      Seguir Comprando
+                    </button>
+                  </div>
+                )}
+
+              </form>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
