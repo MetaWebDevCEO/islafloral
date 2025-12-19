@@ -7,15 +7,15 @@ import './shop.css';
 const PRODUCTS = [
   {
     id: 1,
-    name: "Colección Tropical: Heliconias y Anturios",
-    price: 1200.00,
+    name: "Anturio pz",
+    price: 90.00,
     description: "Exotismo puro. Una vibrante selección de Heliconias y Anturios que evoca la calidez del trópico con sus formas arquitectónicas y colores intensos.",
     image: "/img3.jpg"
   },
   {
     id: 2,
-    name: "Rosa Freedom Premium",
-    price: 1300.00,
+    name: "Rosa 24 pz",
+    price: 200.00,
     description: "La reina de las rosas. Variedad Freedom de exportación, famosa por su rojo profundo, tallos largos y apertura perfecta en forma de copa.",
     image: "/img.jpg"
   }
